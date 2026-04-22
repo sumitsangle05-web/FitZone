@@ -4,19 +4,19 @@ import { Check, ShieldCheck } from 'lucide-react';
 const plans = [
   {
     name: 'Standard',
-    price: '49',
+    price: '2,499',
     features: ['Access to basic gym area', 'Locker room access', '1 Personal training intro', 'Free parking'],
     accent: false
   },
   {
     name: 'Premium',
-    price: '89',
+    price: '4,999',
     features: ['Full gym access 24/7', 'Group workout classes', 'Sauna and Spa access', 'Custom workout app', 'Monthly nutrition plan'],
     accent: true
   },
   {
     name: 'Elite',
-    price: '149',
+    price: '7,999',
     features: ['Everything in Premium', 'Personal training 2x/week', 'Protein shake bar access', 'Guest passes (5/mo)', 'Body recovery therapy'],
     accent: false
   }
@@ -28,7 +28,7 @@ export default function Membership({ bento }: { bento?: boolean }) {
       <div className="h-full bg-card-light bento-card p-6 flex flex-col justify-between border-white/10">
         <h3 className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Membership</h3>
         <div>
-          <span className="text-4xl font-display font-black italic tracking-tighter">$49</span>
+          <span className="text-4xl font-display font-black italic tracking-tighter">₹2,499</span>
           <span className="text-xs text-zinc-500 uppercase tracking-widest font-bold ml-1">/mo</span>
         </div>
         <ul className="text-[10px] text-zinc-500 space-y-1.5 uppercase font-bold tracking-widest">
@@ -79,7 +79,7 @@ export default function Membership({ bento }: { bento?: boolean }) {
               <div className="mb-10">
                 <h3 className="text-2xl font-display font-bold uppercase tracking-widest mb-4 italic">{plan.name}</h3>
                 <div className="flex items-end gap-1">
-                  <span className="text-4xl font-display font-bold">$</span>
+                  <span className="text-4xl font-display font-bold">₹</span>
                   <span className="text-7xl font-display font-bold leading-none">{plan.price}</span>
                   <span className="text-zinc-500 font-bold uppercase tracking-widest ml-2">/ month</span>
                 </div>
