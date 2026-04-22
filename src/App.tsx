@@ -21,9 +21,10 @@ import GymTools from './components/GymTools';
 import MembershipPage from './components/MembershipPage';
 import DietPlanPage from './components/DietPlanPage';
 import TrainersPage from './components/TrainersPage';
+import ShopPage from './components/ShopPage';
 import { useState } from 'react';
 
-type ViewState = 'home' | 'tools' | 'membership' | 'diet' | 'trainers';
+type ViewState = 'home' | 'tools' | 'membership' | 'diet' | 'trainers' | 'shop';
 
 export default function App() {
   const [view, setView] = useState<ViewState>('home');
@@ -34,6 +35,7 @@ export default function App() {
       case 'membership': return <MembershipPage onBack={() => setView('home')} />;
       case 'diet': return <DietPlanPage onBack={() => setView('home')} />;
       case 'trainers': return <TrainersPage onBack={() => setView('home')} />;
+      case 'shop': return <ShopPage onBack={() => setView('home')} />;
       default: return (
         <motion.main 
           key="home"
@@ -81,6 +83,7 @@ export default function App() {
     else if (v === 'Membership') setView('membership');
     else if (v === 'Diet Plan') setView('diet');
     else if (v === 'Trainers') setView('trainers');
+    else if (v === 'Shop') setView('shop');
     else setView('home');
   };
 

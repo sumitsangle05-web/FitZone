@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Users, Plus, X, Trash2, Check, AlertCircle, Dumbbell, ShieldCheck, Mail, Calendar, Download } from 'lucide-react';
+import { Users, Plus, X, Trash2, Check, AlertCircle, Dumbbell, ShieldCheck, Mail, Calendar, Download, ShoppingBag } from 'lucide-react';
 import { db } from '../lib/firebase';
-import { collection, query, getDocs, addDoc, deleteDoc, doc, serverTimestamp, orderBy } from 'firebase/firestore';
+import { collection, query, getDocs, addDoc, deleteDoc, doc, serverTimestamp, orderBy, updateDoc } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext';
 
 export default function AdminPortal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const { isAdmin } = useAuth();
   const [users, setUsers] = useState<any[]>([]);
   const [bookings, setBookings] = useState<any[]>([]);
-  const [activeTab, setActiveTab] = useState<'members' | 'bookings' | 'management'>('members');
+  const [orders, setOrders] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<'members' | 'bookings' | 'management' | 'orders'>('members');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -59,6 +60,9 @@ export default function AdminPortal({ isOpen, onClose }: { isOpen: boolean; onCl
       
       const bookingsSnap = await getDocs(query(collection(db, 'bookings'), orderBy('createdAt', 'desc')));
       setBookings(bookingsSnap.docs.map(d => ({ id: d.id, ...d.data() })));
+
+      const ordersSnap = await getDocs(query(collection(db, 'orders'), orderBy('createdAt', 'desc')));
+      setOrders(ordersSnap.docs.map(d => ({ id: d.id, ...d.data() })));
     } catch (err) {
       console.error(err);
       setError('Failed to fetch data');
@@ -133,6 +137,7 @@ export default function AdminPortal({ isOpen, onClose }: { isOpen: boolean; onCl
                   { id: 'members', label: 'Members', icon: <Users size={16} /> },
                   { id: 'bookings', label: 'Bookings', icon: <Calendar size={16} /> },
                   { id: 'management', label: 'Add Data', icon: <Plus size={16} /> },
+                  { id: 'orders', label: 'Orders', icon: <ShoppingBag size={16} /> },
                 ].map(tab => (
                   <button
                     key={tab.id}
@@ -204,6 +209,68 @@ export default function AdminPortal({ isOpen, onClose }: { isOpen: boolean; onCl
                           </div>
                         </div>
                       ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'orders' && (
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-black uppercase tracking-widest text-primary mb-6">Product Orders</h3>
+                    <div className="grid grid-cols-1 gap-3">
+                      {orders.map(o => (
+                        <div key={o.id} className="p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div className="flex items-center gap-4">
+                            <div className="p-3 bg-primary/10 rounded-xl text-primary">
+                              <ShoppingBag size={20} />
+                            </div>
+                            <div>
+                              <p className="text-sm font-black uppercase tracking-tight">{o.productName}</p>
+                              <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">{o.userEmail}</p>
+                              <p className="text-xs font-display font-black text-primary mt-1">{o.price}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-4">
+                            <div className="text-right sm:block hidden">
+                              <p className="text-[9px] text-zinc-600 uppercase font-bold tracking-widest mb-1">Status</p>
+                              <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded ${
+                                o.status === 'pending' ? 'bg-yellow-500/20 text-yellow-500' : 
+                                o.status === 'processing' ? 'bg-blue-500/20 text-blue-500' : 'bg-green-500/20 text-green-500'
+                              }`}>
+                                {o.status}
+                              </span>
+                            </div>
+                            <div className="flex gap-2">
+                               {o.status === 'pending' && (
+                                 <button 
+                                   onClick={async () => {
+                                     await updateDoc(doc(db, 'orders', o.id), { status: 'completed' });
+                                     fetchData();
+                                   }}
+                                   className="p-2 bg-green-500/20 text-green-500 rounded-lg hover:bg-green-500 hover:text-white transition-all"
+                                 >
+                                   <Check size={16} />
+                                 </button>
+                               )}
+                               <button 
+                                 onClick={async () => {
+                                   if(confirm('Delete order?')) {
+                                     await deleteDoc(doc(db, 'orders', o.id));
+                                     fetchData();
+                                   }
+                                 }}
+                                 className="p-2 bg-red-500/20 text-red-500 rounded-lg hover:bg-red-500 hover:text-white transition-all"
+                               >
+                                 <Trash2 size={16} />
+                               </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                      {orders.length === 0 && (
+                        <div className="text-center py-20 bg-white/2 rounded-3xl border border-dashed border-white/10">
+                          <p className="text-zinc-600 text-[10px] font-black uppercase tracking-widest">No orders recorded yet</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
