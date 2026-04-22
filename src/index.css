@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@500;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  
+  --color-primary: #DC2626; /* red-600 */
+  --color-primary-dark: #B91C1C; /* red-700 */
+  --color-bg: #050505; 
+  --color-card-dark: #111111;
+  --color-card-light: #1A1A1A;
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-zinc-100 font-sans antialiased selection:bg-primary selection:text-white;
+  }
+}
+
+.bento-card {
+  @apply rounded-2xl border border-white/5 transition-all duration-300;
+}
+
+.heading-bold {
+  @apply font-display font-black uppercase tracking-tighter italic;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}

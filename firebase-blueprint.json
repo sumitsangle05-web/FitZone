@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Public and private information for app users",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "createdAt"]
+    },
+    "Booking": {
+      "title": "Appointment Booking",
+      "description": "Sessions booked by users with trainers",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "trainerName": { "type": "string" },
+        "workoutType": { "type": "string" },
+        "dateTime": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "trainerName", "workoutType", "dateTime", "status", "createdAt"]
+    },
+    "UserDiet": {
+      "title": "User Current Diet",
+      "description": "The active diet plan selected by a user",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "goal": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "goal", "updatedAt"]
+    },
+    "UserProgram": {
+      "title": "User Active Program",
+      "description": "The current workout program a user is enlisted in",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "programId": { "type": "string" },
+        "enlistedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "programId", "enlistedAt"]
+    },
+    "Trainer": {
+      "title": "Gym Trainer",
+      "description": "Professional trainers available at FitZone",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "img": { "type": "string" },
+        "specialty": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "role", "img", "specialty", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Individual workout bookings"
+    },
+    "/userDiets/{userId}": {
+      "schema": "UserDiet",
+      "description": "Track which diet plan a user has 'uploaded' or selected"
+    },
+    "/userPrograms/{userId}": {
+      "schema": "UserProgram",
+      "description": "The current program tracking"
+    },
+    "/trainers/{trainerId}": {
+      "schema": "Trainer",
+      "description": "Admin-managed trainers list"
+    }
+  }
+}
