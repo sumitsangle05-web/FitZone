@@ -61,6 +61,20 @@
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["name", "role", "img", "specialty", "createdAt"]
+    },
+    "Order": {
+      "title": "Product Order",
+      "description": "Orders placed in the shop section",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "productName": { "type": "string" },
+        "price": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "processing", "completed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userEmail", "productName", "price", "status", "createdAt"]
     }
   },
   "firestore": {
@@ -83,6 +97,10 @@
     "/trainers/{trainerId}": {
       "schema": "Trainer",
       "description": "Admin-managed trainers list"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Supplement and gear orders"
     }
   }
 }

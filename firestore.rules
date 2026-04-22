@@ -33,39 +33,29 @@ service cloud.firestore {
 
     // Entity Validations
     function isValidUser(data) {
-      return data.keys().hasAll(['uid', 'email', 'createdAt']) &&
-             data.keys().size() <= 6 &&
+      return data.keys().hasAll(['uid', 'createdAt']) &&
              data.uid == request.auth.uid &&
-             data.email is string &&
-             data.email.size() <= 200 &&
              data.createdAt == request.time;
     }
 
     function isValidBooking(data) {
       return data.keys().hasAll(['userId', 'trainerName', 'workoutType', 'dateTime', 'status', 'createdAt']) &&
-             data.keys().size() <= 7 &&
              data.userId == request.auth.uid &&
-             data.trainerName is string &&
-             data.trainerName.size() <= 100 &&
              data.status in ['pending', 'confirmed', 'cancelled'] &&
              data.createdAt == request.time;
     }
 
     function isValidTrainer(data) {
       return data.keys().hasAll(['name', 'role', 'img', 'specialty', 'createdAt']) &&
-             data.keys().size() <= 6 &&
              data.name is string &&
-             data.role is string &&
-             data.img is string &&
-             data.specialty is string &&
              data.createdAt == request.time;
     }
 
     // Collection Matches
     match /users/{userId} {
-      allow get: if isOwner(userId) || isAdmin();
+      allow get: if (isOwner(userId) || isAdmin());
       allow list: if isAdmin();
-      allow create: if isOwner(userId) && isValidUser(incoming());
+      allow create: if (isOwner(userId) || isAdmin()) && isValidUser(incoming());
       allow update: if (isOwner(userId) || isAdmin()) && (
         incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'photoURL'])
       );
