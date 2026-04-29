@@ -57,7 +57,7 @@ export default function Navbar({ onNavigate }: { onNavigate?: (view: string) => 
             key={link.name} 
             href={link.href} 
             onClick={(e) => {
-              const viewLinks = ['Tools', 'Membership', 'Diet Plan', 'Trainers', 'Shop'];
+              const viewLinks = ['Home', 'Programs', 'Tools', 'Membership', 'Diet Plan', 'Trainers', 'Shop'];
               if (viewLinks.includes(link.name)) {
                 e.preventDefault();
                 onNavigate?.(link.name);
@@ -207,7 +207,7 @@ export default function Navbar({ onNavigate }: { onNavigate?: (view: string) => 
                     <button
                       key={link.name}
                       onClick={() => {
-                        const viewLinks = ['Tools', 'Membership', 'Diet Plan', 'Trainers', 'Shop'];
+                        const viewLinks = ['Home', 'Programs', 'Tools', 'Membership', 'Diet Plan', 'Trainers', 'Shop'];
                         if (viewLinks.includes(link.name)) {
                           onNavigate?.(link.name);
                         }

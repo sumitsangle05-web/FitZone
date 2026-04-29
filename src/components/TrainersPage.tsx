@@ -7,28 +7,28 @@ import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 const initialTrainers = [
   {
-    name: 'Marcus Thorne',
+    name: 'Sheetal Bhitiria',
     role: 'Strength & Conditioning',
-    img: 'https://images.unsplash.com/photo-1567013127542-490d757e51fe?auto=format&fit=crop&q=80&w=800',
-    specialty: 'Powerlifting, Bodybuilding',
-    bio: 'Former Olympic weightlifting coach with 15+ years experience in bio-mechanics and peak performance.',
-    stats: { clients: '500+', experience: '15yr', rank: 'Master' }
+    img: 'https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&q=80&w=800',
+    specialty: 'Transformation Specialist',
+    bio: 'Dedicated to helping clients achieve their ultimate physical transformation through science-based training and nutrition.',
+    stats: { clients: 'Pro', experience: '12yr+', rank: 'Elite' }
   },
   {
-    name: 'Elena Volkov',
-    role: 'Nutrition & Performance',
-    img: 'https://images.unsplash.com/photo-1548690312-e3b507d17a12?auto=format&fit=crop&q=80&w=800',
-    specialty: 'Fat Loss, Dietetics',
-    bio: 'Specializes in metabolic optimization and performance-based nutrition protocols for elite athletes.',
-    stats: { clients: '1.2k', experience: '8yr', rank: 'Elite' }
+    name: 'Ronnie Coleman',
+    role: '8x Mr. Olympia / The GOAT',
+    img: 'https://hips.hearstapps.com/hmg-prod/images/ronnie-coleman-1666687481.jpg?crop=0.668xw:1.00xh;0.0528xw,0&resize=1200:*',
+    specialty: 'Extreme Power, Hypertrophy',
+    bio: '8-time Mr. Olympia winner and arguably the greatest bodybuilder of all time. Master of "Light Weight" high-intensity training.',
+    stats: { clients: 'Legend', experience: '25yr+', rank: 'GOAT' }
   },
   {
-    name: 'David Chen',
-    role: 'HIIT Specialist',
-    img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800',
-    specialty: 'Functional Training, Agility',
-    bio: 'Expert in high-intensity functional movements and structural integrity training.',
-    stats: { clients: '800+', experience: '10yr', rank: 'Lead' }
+    name: 'Sarah Jenkins',
+    role: 'Strength & Conditioning',
+    img: 'https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=800',
+    specialty: 'Powerlifting & Mobility Specialist',
+    bio: 'Former Olympic athlete focused on explosive power development and structural movement efficiency.',
+    stats: { clients: '500+', experience: '15yr', rank: 'Pro' }
   }
 ];
 
