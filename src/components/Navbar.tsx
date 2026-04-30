@@ -159,7 +159,7 @@ export default function Navbar({ onNavigate }: { onNavigate?: (view: string) => 
             onClick={() => setIsAuthOpen(true)}
             className="bg-white text-black text-[11px] font-bold px-6 py-3 rounded-full uppercase tracking-widest hover:scale-105 transition-all shadow-xl"
           >
-            Join
+            Get Started
           </button>
         )}
 

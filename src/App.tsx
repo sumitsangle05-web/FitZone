@@ -94,7 +94,7 @@ export default function App() {
                   onClick={() => setView('home')}
                   className="group relative bg-white text-black px-12 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-primary hover:text-white transition-all shadow-2xl overflow-hidden"
                 >
-                  <span className="relative z-10">Enter Dashboard</span>
+                  <span className="relative z-10">Get Started</span>
                   <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 </button>
               </motion.div>
